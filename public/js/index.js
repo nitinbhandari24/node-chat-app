@@ -9,10 +9,10 @@ socket.on('connect', function () {
 //   })
 // })
 
-  socket.emit('createMessage', {
-    from: 'nitin',
-    text: 'This is text to send as message'
-  });
+  // socket.emit('createMessage', {
+  //   from: 'nitin',
+  //   text: 'This is text to send as message'
+  // });
 });
 
 socket.on('disconnect', function () {

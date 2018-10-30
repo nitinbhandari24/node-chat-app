@@ -25,14 +25,21 @@ io.on('connection', (socket) => {
   //   console.log('createEmail', newEmail);
   // })
 
-  socket.emit('newMessage', {
-    from: 'nitin',
-    text: 'Message generated',
-    createdAt: 123
-  });
+// TO message to a particular user
+  // socket.emit('newMessage', {
+  //   from: 'nitin',
+  //   text: 'Message generated',
+  //   createdAt: 123
+  // });
 
   socket.on('createMessage', (message) => {
     console.log("createMessage", message);
+// TO message to all user(broadcast)
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime
+    })
   });
 
   socket.on('disconnect', () => {
