@@ -17,27 +17,18 @@ app.use(express.static(publicPath))
 io.on('connection', (socket) => {
   console.log('New user connected');
 
-  // socket.emit('newEmail', {
-  //   from: "nitin@example.com",
-  //   text: "Mail generated",
-  //   createdAt: 213
-  // })
-  // socket.on('createEmail', (newEmail) => {
-  //   console.log('createEmail', newEmail);
-  // })
-
 //TO message to a particular user
   socket.emit('newMessage', generateMessage('Admin','Welcome to the chat app'));
 
   socket.broadcast.emit('newMessage', generateMessage('Admin','New user joined'))
 
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('createMessage', message);
 
 //TO message to all user from one user
     io.emit('newMessage', generateMessage(message.from, message.text))
-
+    callback('This is the acknowledgement of receiving message from the server');
   });
 
   socket.on('disconnect', () => {
